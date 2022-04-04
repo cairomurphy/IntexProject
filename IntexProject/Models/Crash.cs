@@ -12,6 +12,6 @@ namespace IntexProject.Models
         public string MAIN_ROAD_NAME { get; set; }
         public string CITY { get; set; }
         public string COUNTY_NAME { get; set; }
-        public int CRASH_SEVERITY_ID { get; set; }
+        public int? CRASH_SEVERITY_ID { get; set; }
     }
 }

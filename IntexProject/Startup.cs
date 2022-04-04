@@ -76,7 +76,34 @@ namespace IntexProject
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "Paging",
+                    pattern: "Page-{pageNum}",
+                    defaults: new { Controller = "Home", action = "Index", pageNum = 1 });
             });
         }
     }
 }
+
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllerRoute(
+//        "typepage",
+//        "{projectType}/Page-{pageNum}",
+//        new { Controller = "Home", action = "Index" });
+
+//    endpoints.MapControllerRoute(
+//        name: "Paging",
+//        pattern: "Page-{pageNum}",
+//        defaults: new { Controller = "Home", action = "Index", pageNum = 1 });
+
+//    endpoints.MapControllerRoute(
+//        "type",
+//        "{projectType}",
+//        new { Controller = "Home", action = "Index", pageNum = 1 });
+
+//    endpoints.MapDefaultControllerRoute();
+
+//    endpoints.MapRazorPages();
+//});

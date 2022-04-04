@@ -5,6 +5,6 @@ namespace IntexProject.Models
 {
     public interface ICrashRepository
     {
-        IQueryable<Crash> Crashes { get; }
+        IQueryable<Crash> mytable { get; }
     }
 }

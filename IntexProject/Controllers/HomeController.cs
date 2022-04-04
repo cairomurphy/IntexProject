@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using IntexProject.Models;
+using IntexProject.Models.ViewModels;
 
 namespace IntexProject.Controllers
 {
@@ -29,11 +30,23 @@ namespace IntexProject.Controllers
             return View();
         }
 
-        public IActionResult Data()
+        public IActionResult Data(int pageNum = 1)
         {
-            var x = repo.Crashes
-                .ToList();
+            int pageSize = 25;
 
+            var x = new CrashesViewModel
+            {
+                mytable = repo.mytable
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+
+                PageInfo = new PageInfo
+                {
+                    TotalNumCrashes = repo.mytable.Count(),
+                    CrashesPerPage = pageSize,
+                    CurrentPage = pageNum
+                }
+            };
             return View(x);
         }
 

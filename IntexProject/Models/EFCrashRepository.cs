@@ -12,6 +12,6 @@ namespace IntexProject.Models
             context = temp;
         }
 
-        public IQueryable<Crash> Crashes => context.Crashes;
+        public IQueryable<Crash> mytable => context.mytable;
     }
 }
