@@ -30,6 +30,11 @@ namespace IntexProject
         {
             services.AddControllersWithViews();
 
+            services.AddDbContext<CrashDbContext>(options =>
+            {
+                options.UseMySql(Configuration["ConnectionStrings:CrashDbConnection"]);
+            });
+
             //services.AddIdentity<IdentityUser, IdentityRole>()
             //     .AddEntityFrameworkStores<AppIdentityDBContext>();
 
@@ -48,6 +53,8 @@ namespace IntexProject
             //        options.ClientId = googleAuthNSection["ClientId"];
             //        options.ClientSecret = googleAuthNSection["ClientSecret"];
             //    });
+
+            services.AddScoped<ICrashRepository, EFCrashRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
