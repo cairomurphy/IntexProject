@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace IntexProject
 {
@@ -30,6 +31,13 @@ namespace IntexProject
 
             //services.AddIdentity<IdentityUser, IdentityRole>()
             //     .AddEntityFrameworkStores<AppIdentityDBContext>();
+
+            // Sets the display of the Cookie Consent banner (/Pages/Shared/_CookieConsentPartial.cshtml).
+            // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+            services.Configure<CookiePolicyOptions>(options => {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.Strict;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +46,8 @@ namespace IntexProject
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                app.UseCookiePolicy();
             }
             else
             {
