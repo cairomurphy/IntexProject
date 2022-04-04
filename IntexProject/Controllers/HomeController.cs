@@ -11,11 +11,11 @@ namespace IntexProject.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private ICrashRepository _repo {get;set;}
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ICrashRepository temp)
         {
-            _logger = logger;
+            _repo = temp;
         }
 
         public IActionResult Index()
