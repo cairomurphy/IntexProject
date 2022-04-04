@@ -30,6 +30,8 @@ namespace IntexProject
 
             //services.AddIdentity<IdentityUser, IdentityRole>()
             //     .AddEntityFrameworkStores<AppIdentityDBContext>();
+
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,15 +44,31 @@ namespace IntexProject
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+               
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            //security
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("X-Xss-Protection", "1");
+                await next();
+            });
+            app.Use(async (ctx, next) =>
+            {
+                ctx.Response.Headers.Add("Content-Security-Policy",
+                "Content-Security-Policy: ");
+                await next();
+            });
+
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            app.UseHsts();
 
             app.UseEndpoints(endpoints =>
             {
