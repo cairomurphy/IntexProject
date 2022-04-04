@@ -11,11 +11,12 @@ namespace IntexProject.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private ICrashRepository repo { get; set; }
+
+        public HomeController(ICrashRepository temp)
         {
-            _logger = logger;
+            repo = temp;
         }
 
         public IActionResult Index()
@@ -30,7 +31,10 @@ namespace IntexProject.Controllers
 
         public IActionResult Data()
         {
-            return View();
+            var x = repo.Crashes
+                .ToList();
+
+            return View(x);
         }
 
         public IActionResult PredictionForm()
